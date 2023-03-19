@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+        }
+        body{
+            width:100%;
+            height: 100vh;
+            background:orange;
+            display:flex;
+            align-items:center;
+            justify-content: center;
+        }
+        form{
+            width: 280px;
+            height: auto;
+            padding:40px;
+            border-radius: 10px;
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <form name="submit-to-google-sheet">
+        <label>Name:</label><br>
+        <input type="text" name="name"><br><br>
+        <label>Email:</label><br>
+        <input type="text" name="email"><br><br>
+        <label>Address:</label><br>
+        <input type="text" name="address"><br><br>
+        <label>Total bill:</label><br>
+        <input type="text" name="cost"><br><br>
+        <label>Gender</label><br>
+        <input type="radio" name="gender" value="male"><label>Male</label>
+        <input type="radio" name="gender" value="female"><label>Female</label><br><br>
+        <label>Message</label><br>
+        <textarea name="message" cols="10"></textarea><br><br>
+        <input type="submit" name="submit">
+    </form>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwM81X1iRgKSU9WX2zbhLZVX7W_ElBQlzl20d1KJvIZZCpuvYukSiHXHrQxo7y1uudzCw/exec'
+        const form = document.forms['submit-to-google-sheet']
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => console.log('Success!', response))
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+</body>
+</html>
